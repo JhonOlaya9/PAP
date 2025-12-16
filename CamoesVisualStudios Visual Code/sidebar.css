@@ -1,0 +1,71 @@
+/* ===== SIDEBAR ===== */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -180px;
+    width: 180px;
+    height: 100vh;
+    background: #111;
+    color: white;
+    transition: left 0.3s ease;
+    z-index: 9999;
+    padding-top: 20px;
+}
+
+/* Quando o rato chega ao lado → aparece */
+.sidebar:hover {
+    left: 0;
+}
+
+/* Ícone indicador */
+.sidebar-icon {
+    position: absolute;
+    right: -40px;
+    top: 20px;
+    background: #6a00f4;
+    width: 40px;
+    height: 40px;
+    border-radius: 0 5px 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* Conteúdo */
+.sidebar-content {
+    margin-top: 40px;
+}
+
+.sidebar-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-content ul li {
+    padding: 15px;
+    border-bottom: 1px solid #333;
+}
+
+.sidebar-content ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.sidebar-content ul li:hover {
+    background: #6a00f4;
+}
+
+/* Foto de perfil */
+.perfil img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 20px auto;
+    border: 2px solid #6a00f4;
+}

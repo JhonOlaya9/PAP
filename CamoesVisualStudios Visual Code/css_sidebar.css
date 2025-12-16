@@ -1,0 +1,71 @@
+/* -------- SIDEBAR CORRIGIDO -------- */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0; /* Sidebar sempre no sítio */
+    width: 60px; /* tamanho fechado */
+    height: 100vh;
+    background: #111;
+    color: #fff;
+    transition: width 0.3s ease;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+/* Sidebar abre quando o rato passa */
+.sidebar:hover {
+    width: 180px;
+}
+
+/* Ícone do menu */
+.sidebar-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #6a00f4;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Conteúdo dentro do menu */
+.sidebar-content {
+    padding-top: 20px;
+}
+
+/* Corrigir listas */
+.sidebar-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-content ul li {
+    padding: 15px;
+    border-bottom: 1px solid #333;
+}
+
+/* Links só dentro do sidebar! */
+.sidebar-content ul li a {
+    color: white !important;
+    text-decoration: none !important;
+    font-size: 18px;
+}
+
+/* Foto do perfil */
+.perfil img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 10px auto;
+    display: block;
+    border: 2px solid #6a00f4;
+}
+
+/* -------- ESPAÇO PARA O CONTEÚDO -------- */
+.main-content {
+    margin-left: 80px; /* Garante que nada fica por baixo do sidebar */
+    padding: 20px;
+}

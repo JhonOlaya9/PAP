@@ -1,0 +1,156 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f4f8;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* --- MENU FIXO NO TOPO --- */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #111;
+  color: #fff;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+header h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+header nav {
+  display: flex;
+  gap: 20px;
+}
+
+header nav a {
+  color: #fff;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+header nav a:hover {
+  background: #7c3aed;
+  color: #fff;
+}
+
+/* Espaço para compensar o header fixo */
+body {
+  padding-top: 80px;
+}
+
+/* --- SECTIONS --- */
+section {
+  padding: 60px 40px;
+  text-align: center;
+}
+
+/* Hero / destaque */
+.hero {
+  background: linear-gradient(to right, #7c3aed, #4f46e5);
+  color: white;
+  padding: 120px 20px;
+  text-align: center;
+}
+
+.hero h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+/* --- PERFIL --- */
+.foto-perfil {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border: 3px solid #7c3aed;
+  margin-bottom: 20px;
+}
+
+/* --- FORMULÁRIOS --- */
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input, textarea {
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+button {
+  padding: 15px;
+  background-color: #7c3aed;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #5b21b6;
+}
+
+/* --- IMAGENS ENVIADAS --- */
+.imagem {
+  margin-bottom: 30px;
+}
+
+.imagem img {
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  max-width: 100%;
+}
+
+/* --- FOOTER --- */
+footer {
+  background-color: #111;
+  color: white;
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 40px;
+}
+
+footer .social a {
+  margin: 0 10px;
+  color: #a855f7;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+footer .social a:hover {
+  color: #fff;
+}

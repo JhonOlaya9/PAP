@@ -1,0 +1,154 @@
+:root {
+    --blanco: #ffffff;
+    --negro: #000000;
+    --radius: 14px;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Body */
+body {
+    background-color: var(--blanco);
+    color: var(--negro);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 10px;
+}
+
+/* Container */
+.linktree-container {
+    width: 100%;
+    max-width: 480px;
+    text-align: center;
+}
+
+/* Logo */
+.linktree-logo img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--negro);
+    margin-bottom: 20px;
+    background: var(--blanco);
+}
+
+/* Título */
+.linktree-titulo {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+
+/* Texto */
+.linktree-texto {
+    font-size: 1.15rem;
+    margin-bottom: 25px;
+}
+
+/* Botones */
+.linktree-btn {
+    display: block;
+    width: 100%;
+    background: var(--blanco);
+    color: var(--negro);
+    padding: 17px;
+    margin: 12px 0;
+    border-radius: var(--radius);
+    font-size: 1.2rem;
+    text-decoration: none;
+    font-weight: 600;
+    border: 2px solid var(--negro);
+    transition: 0.25s ease-in-out;
+}
+
+    .linktree-btn:hover {
+        background: var(--negro);
+        color: var(--blanco);
+        transform: scale(1.03);
+    }
+
+/* Formularios */
+form input,
+form textarea {
+    width: 100%;
+    background: var(--blanco);
+    border: 2px solid var(--negro);
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: var(--radius);
+    color: var(--negro);
+    font-size: 1rem;
+}
+
+    form input:focus,
+    form textarea:focus {
+        outline: none;
+    }
+
+/* Botón formulario */
+form button {
+    width: 100%;
+    background: var(--negro);
+    color: var(--blanco);
+    padding: 14px;
+    border: none;
+    margin-top: 12px;
+    border-radius: var(--radius);
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+    form button:hover {
+        background: var(--blanco);
+        color: var(--negro);
+        border: 2px solid var(--negro);
+    }
+
+/* Volver */
+.linktree-voltar {
+    margin-top: 25px;
+}
+
+    .linktree-voltar a {
+        color: var(--negro);
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        .linktree-voltar a:hover {
+            text-decoration: underline;
+        }
+
+/* Imágenes (opcional: look artístico) */
+img {
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+}
+
+    img:hover {
+        filter: grayscale(0%);
+    }
+
+/* Responsive */
+@media (max-width: 480px) {
+    .linktree-logo img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .linktree-titulo {
+        font-size: 1.8rem;
+    }
+}

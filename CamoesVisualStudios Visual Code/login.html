@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - CamoesVisualStudios</title>
+    <link rel="stylesheet" href="Style2.css">
+</head>
+<body>
+    <center><h2>Iniciar Sessão</h2></center>
+
+    <form action="iniciar_sessao.php" method="POST">
+        <label>Nome:</label>
+        <input type="text" name="nome" required>
+
+        <label>Senha:</label>
+        <input type="password" name="senha" required>
+
+        <input type="submit" value="Entrar">
+
+        <p style="margin-top: 10px;">
+            <a href="recuperar_senha.html">Esqueci-me da palavra-passe</a>
+        </p>
+    </form>
+    <form action="logout.php" method="POST">
+    <p>Não tem uma conta? <a href="criar_conta.html">Crie uma agora</a></p>
+    </form>
+</body>
+</html>
