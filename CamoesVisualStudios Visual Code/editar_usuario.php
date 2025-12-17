@@ -5,95 +5,174 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['role'] !== 'admin') {
     exit;
 }
 
-$host = "localhost";
-$usuario = "root";
-$senha_bd = "";
-$bd = "CamoesVisualStudios";
-
-$conn = new mysqli($host, $usuario, $senha_bd, $bd);
+$conn = new mysqli("localhost", "root", "", "camoesvisualstudios");
 if ($conn->connect_error) {
-    die("Erro na ligação: " . $conn->connect_error);
+    die("Erro na ligação");
 }
 
+// POST → atualizar
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $usuario_id = intval($_POST['id']);
-    $novo_nome = trim($_POST['nome']);
     $nova_senha = trim($_POST['senha']);
     $nova_role = $_POST['role'];
 
-    // Atualiza nome e função
-    $sql = "UPDATE usuarios SET nome = ?, role = ? WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssi", $novo_nome, $nova_role, $usuario_id);
+    // Impede o admin de remover o próprio admin
+    if ($usuario_id == $_SESSION['usuario_id']) {
+        $nova_role = 'admin';
+    }
+
+    $stmt = $conn->prepare("UPDATE usuarios SET role = ? WHERE id = ?");
+    $stmt->bind_param("si", $nova_role, $usuario_id);
     $stmt->execute();
     $stmt->close();
 
-    // Atualiza senha se fornecida
     if (!empty($nova_senha)) {
-        $hash_senha = password_hash($nova_senha, PASSWORD_DEFAULT);
-        $sql_senha = "UPDATE usuarios SET senha = ? WHERE id = ?";
-        $stmt_senha = $conn->prepare($sql_senha);
-        $stmt_senha->bind_param("si", $hash_senha, $usuario_id);
-        $stmt_senha->execute();
-        $stmt_senha->close();
+        $hash = password_hash($nova_senha, PASSWORD_DEFAULT);
+        $stmt = $conn->prepare("UPDATE usuarios SET senha = ? WHERE id = ?");
+        $stmt->bind_param("si", $hash, $usuario_id);
+        $stmt->execute();
+        $stmt->close();
     }
 
-    $conn->close();
+    header("Location: admin.php?msg=atualizado");
+    exit;
+}
+
+// GET → buscar utilizador
+if (!isset($_GET['id'])) {
     header("Location: admin.php");
     exit;
 }
 
-// Obtém dados do usuário
-if (isset($_GET['id'])) {
-    $usuario_id = intval($_GET['id']);
+$usuario_id = intval($_GET['id']);
+$stmt = $conn->prepare("SELECT id, nome, email, role FROM usuarios WHERE id = ?");
+$stmt->bind_param("i", $usuario_id);
+$stmt->execute();
+$result = $stmt->get_result();
 
-    $sql = "SELECT id, nome, email, role FROM usuarios WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $usuario_id);
-    $stmt->execute();
-    $stmt->bind_result($id, $nome, $email, $role);
-    $stmt->fetch();
-    $stmt->close();
+if ($result->num_rows === 0) {
+    header("Location: admin.php");
+    exit;
 }
-?>
 
+$user = $result->fetch_assoc();
+$stmt->close();
+?>
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <center>
     <meta charset="UTF-8">
     <title>Editar Usuário</title>
-    <link rel="stylesheet" href="Style2.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 50px 20px;
+        }
+
+        .container {
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+            color: #333;
+        }
+
+        .perfil p {
+            margin: 8px 0;
+            color: #555;
+        }
+
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            text-align: left;
+            font-weight: bold;
+            color: #444;
+        }
+
+        input, select {
+            padding: 10px 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 12px;
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.25s;
+        }
+
+        button:hover {
+            background: #555;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: color 0.25s;
+        }
+
+        a:hover {
+            color: #000;
+        }
+    </style>
 </head>
 <body>
-    <h1>Perfil do Usuário <?php echo htmlspecialchars($nome); ?>!</h1>
-    
+
+<div class="container">
+    <h1>Perfil de <?= htmlspecialchars($user['nome']) ?></h1>
+
     <div class="perfil">
-        <p><strong>ID:</strong> <?php echo $id; ?></p>
-        <p><strong>Nome:</strong> <?php echo htmlspecialchars($nome); ?></p>
-        <p><strong>Email:</strong> <?php echo htmlspecialchars($email); ?></p>
-        <p><strong>Função:</strong> <?php echo htmlspecialchars($role); ?></p>
+        <p><strong>ID:</strong> <?= $user['id'] ?></p>
+        <p><strong>Email:</strong> <?= htmlspecialchars($user['email']) ?></p>
+        <p><strong>Função:</strong> <?= htmlspecialchars($user['role']) ?></p>
     </div>
 
-    <h2>Editar Usuário</h2>
-    <form action="editar_usuario.php" method="POST">
-        <input type="hidden" name="id" value="<?php echo $id; ?>">
-        
-        <label>Nome:</label>
-        <input type="text" name="nome" value="<?php echo htmlspecialchars($nome); ?>" required>
+    <form method="POST">
+        <input type="hidden" name="id" value="<?= $user['id'] ?>">
 
-        <label>Nova Senha:</label>
-        <input type="password" name="senha" placeholder="Digite uma nova senha (opcional)">
+        <label>Nova Senha</label>
+        <input type="password" name="senha" placeholder="Deixe em branco para não alterar">
 
-        <label>Função:</label>
+        <label>Função</label>
         <select name="role">
-            <option value="user" <?php if ($role == 'user') echo 'selected'; ?>>Usuário</option>
-            <option value="admin" <?php if ($role == 'admin') echo 'selected'; ?>>Admin</option>
+            <option value="user" <?= $user['role']=='user'?'selected':'' ?>>Usuário</option>
+            <option value="admin" <?= $user['role']=='admin'?'selected':'' ?>>Admin</option>
         </select>
 
-        <button type="submit">Atualizar</button>
-        </center>
+        <button type="submit">Salvar Alterações</button>
     </form>
-    <a href="admin.php">Voltar ao painel</a>
+
+    <a href="admin.php">← Voltar</a>
+</div>
+
 </body>
 </html>

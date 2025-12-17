@@ -41,7 +41,7 @@ $result_servicos = $stmt_servicos->get_result();
 <head>
     <meta charset="UTF-8">
     <title>Perfil - Camões Visual Studios</title>
-    <link rel="stylesheet" href="Style2.css">
+    <link rel="stylesheet" href="style2.css">
     <link rel="icon" href="favicon.jpg">
     <style>
         .foto-perfil { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; }
@@ -65,10 +65,34 @@ $result_servicos = $stmt_servicos->get_result();
             <p>No has subido una foto de perfil.</p>
         <?php endif; ?>
 
-        <form action="upload_foto_perfil.php" method="post" enctype="multipart/form-data">
-            <input type="file" name="foto" accept="image/*" required><br><br>
-            <button type="submit">Actualizar Foto</button>
-        </form>
+<form action="upload_foto_perfil.php" method="post" enctype="multipart/form-data">
+    <!-- Input real escondido -->
+    <input type="file" name="foto" id="foto" accept="image/*" style="display:none;" required
+           onchange="mostrarNomeImagem(this)">
+    
+    <!-- Botão personalizado -->
+    <button type="button" onclick="document.getElementById('foto').click();">
+        Seleccionar Fotografia
+    </button>
+
+    <!-- Nome da imagem -->
+    <p id="nomeImagem" style="margin-top:10px; font-style:italic; color:#555;">
+        Nenhuma imagem selecionada
+    </p>
+
+    <br>
+    <button type="submit">Actualizar Foto</button>
+</form>
+
+<script>
+function mostrarNomeImagem(input) {
+    if (input.files && input.files.length > 0) {
+        document.getElementById('nomeImagem').textContent = input.files[0].name;
+    }
+}
+</script>
+
+
     </section>
 
     

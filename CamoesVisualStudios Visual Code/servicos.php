@@ -22,7 +22,7 @@
     <a class="linktree-btn">🏢 Conteúdo para Empresas</a>
     <a class="linktree-btn">✂️ Edição Profissional</a>
 
-    <a class="linktree-btn" href="contacto.php">Pedir Orçamento</a>
+    <a class="linktree-btn" href="contato.php">Pedir Orçamento</a>
 
     <div class="linktree-voltar">
         <a href="index.php">Voltar</a>

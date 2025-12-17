@@ -131,24 +131,4 @@ form button {
             text-decoration: underline;
         }
 
-/* Imágenes (opcional: look artístico) */
-img {
-    filter: grayscale(100%);
-    transition: filter 0.3s ease;
-}
 
-    img:hover {
-        filter: grayscale(0%);
-    }
-
-/* Responsive */
-@media (max-width: 480px) {
-    .linktree-logo img {
-        width: 120px;
-        height: 120px;
-    }
-
-    .linktree-titulo {
-        font-size: 1.8rem;
-    }
-}
